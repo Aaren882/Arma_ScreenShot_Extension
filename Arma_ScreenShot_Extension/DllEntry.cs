@@ -15,5 +15,22 @@ namespace Arma_ScreenShot_Extension
     outputSize--;
     output.Append("1.0.0");
   }
+  public static void RvExtension(StringBuilder output, int outputSize,
+            [MarshalAs(UnmanagedType.LPStr)] string function)
+  {
+    outputSize--;
+    if (function == "init")
+    {
+      if (!InitComplete)
+      {
+        InitComplete = true;
+        //Tools.Logger(null, "Initialized");
+
+        output.Append(SessionKey);
+      }
+      else
+        Tools.Logger(null, "Attempted re-initialization");
+    }
+  }
   #endregion
 }
