@@ -7,8 +7,6 @@ namespace Arma_ScreenShot_Extension
 {
     public class DllEntry
     {
-      [ArmaDllExport]
-
     #region Misc RVExtension Requirements
 #if IS_x64
     [DllExport("RVExtensionVersion", CallingConvention = CallingConvention.Winapi)]
@@ -30,22 +28,20 @@ namespace Arma_ScreenShot_Extension
     [MarshalAs(UnmanagedType.LPStr)] string function)
     {
       outputSize--;
-      output.Append("ScreenShot TEST");
-    }
+        if (function == "init")
+        {
+            output.Append("ScreenShot TEST");
 
-#if IS_x64
-    [DllExport("RVExtensionArgs", CallingConvention = CallingConvention.Winapi)]
-#else
-    [DllExport("_RVExtensionArgs@20", CallingConvention = CallingConvention.Winapi)]
-#endif
+        }
+    }
     #endregion
 
-    /*public static int RvExtensionArgs(StringBuilder output, int outputSize,
+    public static int RvExtensionArgs(StringBuilder output, int outputSize,
           [MarshalAs(UnmanagedType.LPStr)] string inputKey,
           [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr, SizeParamIndex = 4)] string[] args, int argCount)
         {
             output.Append("ScreenShot Test");
             return 1;
-        }*/
+        }
     }
 }
