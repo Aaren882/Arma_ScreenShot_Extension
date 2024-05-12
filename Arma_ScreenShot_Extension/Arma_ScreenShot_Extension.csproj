@@ -27,6 +27,7 @@
 
 	<ItemGroup>
     <Content Include="FodyWeavers.xml" />
+		<Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
