@@ -1,10 +1,6 @@
-using System;
-using System.IO;
-using System.Net.Http;
 using System.Reflection;
-using System.Threading.Tasks;
 
-namespace DiscordMessageAPI
+namespace Arma_ScreenShot_Extension
 {
     internal class Tools
     {
