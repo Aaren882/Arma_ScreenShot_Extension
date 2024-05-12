@@ -1,5 +1,6 @@
 ﻿using Maca134.Arma.DllExport;
 using System.Text;
+using RGiesecke.DllExport;
 
 namespace Arma_ScreenShot_Extension
 {
@@ -8,7 +9,7 @@ namespace Arma_ScreenShot_Extension
         [ArmaDllExport]
        static void RvExtension(StringBuilder output, int outputSize)
        {
-            return;
+            output.Append("TEst DLL Entry");
        }
     }
 }
