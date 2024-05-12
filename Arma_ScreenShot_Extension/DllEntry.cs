@@ -4,40 +4,42 @@ using System.Runtime.InteropServices;
 
 namespace Arma_ScreenShot_Extension
 {
-  #region Misc RVExtension Requirements
-  #region Misc RVExtension Requirements
-#if IS_x64
-        [DllExport("RVExtensionVersion", CallingConvention = CallingConvention.Winapi)]
-#else
-  [DllExport("_RVExtensionVersion@8", CallingConvention = CallingConvention.Winapi)]
-#endif
-  public static void RvExtensionVersion(StringBuilder output, int outputSize)
+  public class DllEntry
   {
-    outputSize--;
-    output.Append("1.0.0");
-  }
-
-#if IS_x64
-        [DllExport("RVExtension", CallingConvention = CallingConvention.Winapi)]
-#else
-  [DllExport("_RVExtension@12", CallingConvention = CallingConvention.Winapi)]
-#endif
-  public static void RvExtension(StringBuilder output, int outputSize,
-      [MarshalAs(UnmanagedType.LPStr)] string function)
-  {
-    outputSize--;
-    if (function == "init")
-    {
-      if (!InitComplete)
+    #region Misc RVExtension Requirements
+    #if IS_x64
+            [DllExport("RVExtensionVersion", CallingConvention = CallingConvention.Winapi)]
+    #else
+        [DllExport("_RVExtensionVersion@8", CallingConvention = CallingConvention.Winapi)]
+    #endif
+      public static void RvExtensionVersion(StringBuilder output, int outputSize)
       {
-        InitComplete = true;
-        //Tools.Logger(null, "Initialized");
-
-        output.Append(SessionKey);
+        outputSize--;
+        output.Append("1.0.0");
       }
-      else
-        Tools.Logger(null, "Attempted re-initialization");
+
+    #if IS_x64
+            [DllExport("RVExtension", CallingConvention = CallingConvention.Winapi)]
+    #else
+      [DllExport("_RVExtension@12", CallingConvention = CallingConvention.Winapi)]
+    #endif
+    public static void RvExtension(StringBuilder output, int outputSize,
+        [MarshalAs(UnmanagedType.LPStr)] string function)
+    {
+      outputSize--;
+      if (function == "init")
+      {
+        if (!InitComplete)
+        {
+          InitComplete = true;
+          //Tools.Logger(null, "Initialized");
+
+          output.Append(SessionKey);
+        }
+        else
+          Tools.Logger(null, "Attempted re-initialization");
+      }
     }
+    #endregion
   }
-  #endregion
 }
