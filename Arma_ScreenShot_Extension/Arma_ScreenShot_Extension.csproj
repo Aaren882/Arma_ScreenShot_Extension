@@ -9,6 +9,8 @@
 		<OutputType>Library</OutputType>
     <RootNamespace>Arma_ScreenShot_Extension</RootNamespace>
     <AssemblyName>Arma_ScreenShot_Extension</AssemblyName>
+		<ProjectGuid>{C71A1E67-9C19-493D-A69E-04A1AA18BE19}</ProjectGuid>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
 		<FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
 		<NuGetPackageImportStamp>
