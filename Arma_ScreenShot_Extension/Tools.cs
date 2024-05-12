@@ -1,13 +1,17 @@
+using System;
+using System.IO;
+using System.Net.Http;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Arma_ScreenShot_Extension
 {
     internal class Tools
     {
         public static readonly string AssemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-        private static readonly string ExtFilePath = Path.Combine(AssemblyPath, "DiscordMessageAPI");
+        private static readonly string ExtFilePath = Path.Combine(AssemblyPath, "Arma_ScreenShot_Extension");
         private static readonly string LogFilePath = Path.Combine(ExtFilePath, "logs");
-        private static readonly string LogFileName = Path.Combine(LogFilePath, $"{DateTime.Now.ToString("yyyy-MM-dd.HH-mm-ss")}.DiscordMessageAPI.log");
+        private static readonly string LogFileName = Path.Combine(LogFilePath, $"{DateTime.Now.ToString("yyyy-MM-dd.HH-mm-ss")}.Arma_ScreenShot_Extension.log");
 
         internal static void Logger(Exception e = null, string s = "", bool loop = false)
         {
