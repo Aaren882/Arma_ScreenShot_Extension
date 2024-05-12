@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Maca134.Arma.DllExport" Version="0.0.2.7" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.4" />
     <PackageReference Include="UnmanagedExports.Repack.Upgrade" Version="1.2.1" />
   </ItemGroup>
