@@ -40,7 +40,7 @@ namespace Arma_ScreenShot_Extension
           output.Append(SessionKey);
         }
         else
-          Tools.Logger(null, "Attempted re-initialization");
+          output.Append("Not Init");
       }
     }
 
