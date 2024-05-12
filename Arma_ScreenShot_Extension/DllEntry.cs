@@ -7,7 +7,6 @@ namespace Arma_ScreenShot_Extension
 {
   public class DllEntry
   {
-    private static object nullCacheLock = new object();
     private static readonly string SessionKey = Tools.GenTimeEncode();
     private static bool InitComplete = false;
 
