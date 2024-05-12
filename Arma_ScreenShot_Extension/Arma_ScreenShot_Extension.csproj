@@ -6,6 +6,9 @@
     <Nullable>enable</Nullable>
     <PlatformTarget>x64</PlatformTarget>
     <Platforms>AnyCPU;x64;x86</Platforms>
+	 <OutputType>Library</OutputType>
+    <RootNamespace>Arma_ScreenShot_Extension</RootNamespace>
+    <AssemblyName>Arma_ScreenShot_Extension</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
