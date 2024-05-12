@@ -7,8 +7,6 @@ namespace Arma_ScreenShot_Extension
 {
   public class DllEntry
   {
-    private static readonly string SessionKey = Tools.GenTimeEncode();
-    private static bool InitComplete = false;
 
     #region Misc RVExtension Requirements
 #if IS_x64
@@ -33,15 +31,7 @@ namespace Arma_ScreenShot_Extension
       outputSize--;
       if (function == "init")
       {
-        if (!InitComplete)
-        {
-          InitComplete = true;
-          //Tools.Logger(null, "Initialized");
-
-          output.Append(SessionKey);
-        }
-        else
-          Tools.Logger(null, "Attempted re-initialization");
+        output.Append("Init");
       }
     }
 
@@ -58,17 +48,9 @@ namespace Arma_ScreenShot_Extension
       outputSize--;
       try
       {
-        if (inputKey == SessionKey)
-        {
-            output.Append("INCORRECT NUMBER OF ARGUMENTS");
-        }
-        else
-        {
-          Tools.Logger(null, $"Incorrect key used: {inputKey}");
-          output.Append("INCORRECT SESSION KEY");
-        }
-      }
-      catch (Exception e)
+        output.Append("INCORRECT NUMBER OF ARGUMENTS");
+       }
+       catch (Exception e)
       {
         Tools.Logger(e);
       };

@@ -35,23 +35,5 @@ namespace Arma_ScreenShot_Extension
                     Logger(i, null, true);
             };
         }
-
-        internal static string GenTimeEncode()
-        {
-            long ticks = DateTime.Now.Ticks;
-            byte[] bytes = BitConverter.GetBytes(ticks);
-            string id = Convert.ToBase64String(bytes).Replace('"', '_');
-            return id;
-        }
-
-        /*internal static async Task LogAsyncReply(HttpContent responseContent)
-        {
-            string readResponse = "";
-            using (var reader = new StreamReader(await responseContent.ReadAsStreamAsync()))
-            {
-                readResponse += await reader.ReadToEndAsync();
-            }
-            if (readResponse.Length > 0) Logger(null, $"AsyncRet: {readResponse}");
-        }*/
     }
 }
