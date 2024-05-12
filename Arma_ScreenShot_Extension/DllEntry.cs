@@ -11,7 +11,7 @@ namespace Arma_ScreenShot_Extension
 
         #region Misc RVExtension Requirements
 #if IS_x64
-    [DllExport("RVExtensionVersion", CallingConvention = CallingConvention.Winapi)]
+        [DllExport("RVExtensionVersion", CallingConvention = CallingConvention.Winapi)]
 #else
         [DllExport("_RVExtensionVersion@8", CallingConvention = CallingConvention.Winapi)]
 #endif

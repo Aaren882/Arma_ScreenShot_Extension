@@ -6,6 +6,6 @@ namespace Arma_ScreenShot_Extension
 {
   static class TakeScreenShot
   {
-    private 
+    
   }
 }
