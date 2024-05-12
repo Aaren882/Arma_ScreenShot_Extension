@@ -60,11 +60,7 @@ namespace Arma_ScreenShot_Extension
       {
         if (inputKey == SessionKey)
         {
-          if (args.Length == 8) // async without await because we don't expect a reply
-            Discord.HandleRequest(args);
-          else
             output.Append("INCORRECT NUMBER OF ARGUMENTS");
-
         }
         else
         {
