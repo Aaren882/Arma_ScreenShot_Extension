@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Drawing;
-using System.Drawing.Imaging;
+using System.Threading.Tasks;
 
 namespace Arma_ScreenShot_Extension
 {
@@ -22,7 +22,7 @@ namespace Arma_ScreenShot_Extension
             public int Bottom;
         }
 
-        public string TakeScreenshot(string outputFilePath)
+        public async Task<string> TakeScreenshot(string outputFilePath)
         {
             if (outputFilePath.IndexOf(":") < 0)
                 return "Invaild Directory";
@@ -44,6 +44,9 @@ namespace Arma_ScreenShot_Extension
 
                     bitmap.Save(outputFilePath);
                 }
+
+                //- Set Delay 500ms
+                await Task.Delay(500);
                 return outputFilePath;
             }
             catch (Exception i)

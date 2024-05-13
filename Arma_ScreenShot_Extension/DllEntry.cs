@@ -28,7 +28,7 @@ namespace Arma_ScreenShot_Extension
 #else
     [DllExport("_RVExtension@12", CallingConvention = CallingConvention.Winapi)]
 #endif
-        public static void RvExtension(StringBuilder output, int outputSize,
+        public static async void RvExtension(StringBuilder output, int outputSize,
             [MarshalAs(UnmanagedType.LPStr)] string path)
         {
             outputSize--;
@@ -40,7 +40,9 @@ namespace Arma_ScreenShot_Extension
                     Directory.CreateDirectory(dir);
                 path = Path.Combine(dir, path);
             }
-            output.Append(new ScreenCapture().TakeScreenshot(path));
+
+            //- Output Delay 500ms
+            output.Append(await new ScreenCapture().TakeScreenshot(path));
         }
 
 #if IS_x64
