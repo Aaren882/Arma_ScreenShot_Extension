@@ -1,5 +1,6 @@
 ﻿using RGiesecke.DllExport;
 using System;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -31,8 +32,14 @@ namespace Arma_ScreenShot_Extension
             [MarshalAs(UnmanagedType.LPStr)] string path)
         {
             outputSize--;
-            if (path == "")
-                path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + DateTime.Now.ToString("h:mm:ss tt");
+            if (path.IndexOf(@"\",0) < 0 && path.IndexOf("/", 0) < 0)
+            {
+                string dir = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Screenshot";
+
+                if (!Directory.Exists(dir))
+                    Directory.CreateDirectory(dir);
+                path = Path.Combine(dir, path);
+            }
             output.Append(new ScreenCapture().TakeScreenshot(path));
         }
 

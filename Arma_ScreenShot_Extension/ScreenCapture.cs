@@ -24,6 +24,8 @@ namespace Arma_ScreenShot_Extension
 
         public string TakeScreenshot(string outputFilePath)
         {
+            if (outputFilePath.IndexOf(":") < 0)
+                return "Invaild Directory";
             try
             {
                 IntPtr handle = GetForegroundWindow();
