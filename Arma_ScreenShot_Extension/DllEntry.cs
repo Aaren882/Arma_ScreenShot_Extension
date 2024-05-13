@@ -2,8 +2,6 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using System.Drawing;
-using System.Drawing.Imaging;
 
 namespace Arma_ScreenShot_Extension
 {
@@ -12,7 +10,7 @@ namespace Arma_ScreenShot_Extension
 
     #region Misc RVExtension Requirements
 #if IS_x64
-        [DllExport("RVExtensionVersion", CallingConvention = CallingConvention.Winapi)]
+    [DllExport("RVExtensionVersion", CallingConvention = CallingConvention.Winapi)]
 #else
     [DllExport("_RVExtensionVersion@8", CallingConvention = CallingConvention.Winapi)]
 #endif
@@ -23,7 +21,7 @@ namespace Arma_ScreenShot_Extension
     }
 
 #if IS_x64
-        [DllExport("RVExtension", CallingConvention = CallingConvention.Winapi)]
+    [DllExport("RVExtension", CallingConvention = CallingConvention.Winapi)]
 #else
     [DllExport("_RVExtension@12", CallingConvention = CallingConvention.Winapi)]
 #endif
@@ -38,7 +36,7 @@ namespace Arma_ScreenShot_Extension
     }
 
 #if IS_x64
-        [DllExport("RVExtensionArgs", CallingConvention = CallingConvention.Winapi)]
+    [DllExport("RVExtensionArgs", CallingConvention = CallingConvention.Winapi)]
 #else
     [DllExport("_RVExtensionArgs@20", CallingConvention = CallingConvention.Winapi)]
 #endif
@@ -50,9 +48,13 @@ namespace Arma_ScreenShot_Extension
       outputSize--;
       try
       {
+        if (args.Length == 2)
+        {
+          ScreenCapture.TakeScreenshot(args);
+        }
         output.Append("INCORRECT NUMBER OF ARGUMENTS");
-       }
-       catch (Exception e)
+      }
+      catch (Exception e)
       {
         Tools.Logger(e);
       };
