@@ -34,7 +34,6 @@ namespace Arma_ScreenShot_Extension
 
                 int width = rect.Right - rect.Left;
                 int height = rect.Bottom - rect.Top;
-                //outputFilePath = outputFilePath.Trim('"',' ').Replace("/", @"\");
 
                 using (Bitmap bitmap = new Bitmap(width, height))
                 {
