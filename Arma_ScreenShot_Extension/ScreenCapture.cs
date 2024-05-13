@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Arma_ScreenShot_Extension
 {
@@ -21,28 +22,32 @@ namespace Arma_ScreenShot_Extension
             public int Bottom;
         }
 
-        /*static void Main(string[] args)
+        public string TakeScreenshot(string outputFilePath)
         {
-            TakeScreenshot(@"K:\Screenshot\snippetsource.jpg");
-            Console.WriteLine("Screenshot taken!");
-        }*/
-
-        static void TakeScreenshot(string outputFilePath)
-        {
-            IntPtr handle = GetForegroundWindow();
-            RECT rect;
-            GetWindowRect(handle, out rect);
-
-            int width = rect.Right - rect.Left;
-            int height = rect.Bottom - rect.Top;
-
-            using (Bitmap bitmap = new Bitmap(width, height))
+            try
             {
-                using (Graphics g = Graphics.FromImage(bitmap))
+                IntPtr handle = GetForegroundWindow();
+                RECT rect;
+                GetWindowRect(handle, out rect);
+
+                int width = rect.Right - rect.Left;
+                int height = rect.Bottom - rect.Top;
+                //outputFilePath = outputFilePath.Trim('"',' ').Replace("/", @"\");
+
+                using (Bitmap bitmap = new Bitmap(width, height))
                 {
-                    g.CopyFromScreen(rect.Left, rect.Top, 0, 0, new Size(width, height));
+                    using (Graphics g = Graphics.FromImage(bitmap))
+                    {
+                        g.CopyFromScreen(rect.Left, rect.Top, 0, 0, new Size(width, height));
+                    }
+
+                    bitmap.Save(outputFilePath);
                 }
-                bitmap.Save(outputFilePath);
+                return outputFilePath;
+            }
+            catch (Exception i)
+            {
+                return $"Error: \n{i}\n{outputFilePath}";
             }
         }
     }
