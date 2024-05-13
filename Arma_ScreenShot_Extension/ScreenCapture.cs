@@ -6,19 +6,14 @@ namespace Arma_ScreenShot_Extension
 {
     internal class ScreenCapture
     {
-        public static Bitmap CaptureActiveWindow()
-        {
-            return CaptureWindow(GetForegroundWindow());
-        }
-
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
 
-        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern IntPtr GetDesktopWindow();
+        [DllImport("user32.dll")]
+        private static extern bool GetWindowRect(IntPtr hWnd, out RECT rect);
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct Rect
+        public struct RECT
         {
             public int Left;
             public int Top;
@@ -26,22 +21,29 @@ namespace Arma_ScreenShot_Extension
             public int Bottom;
         }
 
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
-
-        public static Bitmap CaptureWindow(IntPtr handle)
+        /*static void Main(string[] args)
         {
-            var rect = new Rect();
-            GetWindowRect(handle, ref rect);
-            var bounds = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
-            var result = new Bitmap(bounds.Width, bounds.Height);
+            TakeScreenshot(@"K:\Screenshot\snippetsource.jpg");
+            Console.WriteLine("Screenshot taken!");
+        }*/
 
-            using (var graphics = Graphics.FromImage(result))
+        static void TakeScreenshot(string outputFilePath)
+        {
+            IntPtr handle = GetForegroundWindow();
+            RECT rect;
+            GetWindowRect(handle, out rect);
+
+            int width = rect.Right - rect.Left;
+            int height = rect.Bottom - rect.Top;
+
+            using (Bitmap bitmap = new Bitmap(width, height))
             {
-                graphics.CopyFromScreen(new Point(bounds.Left, bounds.Top), Point.Empty, bounds.Size);
+                using (Graphics g = Graphics.FromImage(bitmap))
+                {
+                    g.CopyFromScreen(rect.Left, rect.Top, 0, 0, new Size(width, height));
+                }
+                bitmap.Save(outputFilePath);
             }
-
-            return result;
         }
     }
 }
