@@ -6,6 +6,11 @@ namespace Arma_ScreenShot_Extension
 {
     internal class ScreenCapture
     {
+        public static Bitmap CaptureActiveWindow()
+        {
+            return CaptureWindow(GetForegroundWindow());
+        }
+
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
 
@@ -23,11 +28,6 @@ namespace Arma_ScreenShot_Extension
 
         [DllImport("user32.dll")]
         private static extern IntPtr GetWindowRect(IntPtr hWnd, ref Rect rect);
-
-        public static Bitmap CaptureActiveWindow()
-        {
-            return CaptureWindow(GetForegroundWindow());
-        }
 
         public static Bitmap CaptureWindow(IntPtr handle)
         {

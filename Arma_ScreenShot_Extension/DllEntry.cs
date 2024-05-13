@@ -50,7 +50,7 @@ namespace Arma_ScreenShot_Extension
       {
         if (args.Length == 2)
         {
-          ScreenCapture.TakeScreenshot(args);
+          ScreenCapture.ScreenCapture(args);
         }
         output.Append("INCORRECT NUMBER OF ARGUMENTS");
       }
