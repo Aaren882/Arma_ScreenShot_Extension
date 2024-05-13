@@ -31,6 +31,8 @@ namespace Arma_ScreenShot_Extension
             [MarshalAs(UnmanagedType.LPStr)] string path)
         {
             outputSize--;
+            if (path == "")
+                path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + DateTime.Now.ToString("h:mm:ss tt");
             output.Append(new ScreenCapture().TakeScreenshot(path));
         }
 
