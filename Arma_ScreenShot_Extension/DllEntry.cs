@@ -55,7 +55,7 @@ namespace Arma_ScreenShot_Extension
             [MarshalAs(UnmanagedType.LPStr)] string inputKey,
             [MarshalAs(UnmanagedType.LPArray, ArraySubType = UnmanagedType.LPStr, SizeParamIndex = 4)] string[] args, int argCount)
         {
-            return 1;
+            return -1;
         }
     }
 }
