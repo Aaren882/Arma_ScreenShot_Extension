@@ -2,10 +2,12 @@
 using System.Runtime.InteropServices;
 using System.Drawing;
 using System.Threading.Tasks;
+using System.IO;
+using System.Linq;
 
 namespace Arma_ScreenShot_Extension
 {
-    internal class ScreenCapture
+    static class ScreenCapture
     {
         [DllImport("user32.dll")]
         private static extern IntPtr GetForegroundWindow();
@@ -22,10 +24,8 @@ namespace Arma_ScreenShot_Extension
             public int Bottom;
         }
 
-        public async Task<string> TakeScreenshot(string outputFilePath)
+        public static async Task<string> TakeScreenshot(string dir, string outputFilePath)
         {
-            if (outputFilePath.IndexOf(":") < 0)
-                return "Invaild Directory";
             try
             {
                 IntPtr handle = GetForegroundWindow();
@@ -42,16 +42,49 @@ namespace Arma_ScreenShot_Extension
                         g.CopyFromScreen(rect.Left, rect.Top, 0, 0, new Size(width, height));
                     }
 
+                    //- Save the File
+                    await Task.Delay(100);
                     bitmap.Save(outputFilePath);
-                }
 
-                //- Set Delay 500ms
-                await Task.Delay(500);
+                    //- Check whether the folder is full
+                    CheckMaxFile(dir);
+                }
                 return outputFilePath;
             }
             catch (Exception i)
             {
-                return $"Error: \n{i}\n{outputFilePath}";
+                return $"ERROR: \n{i}\n{outputFilePath}";
+            }
+        }
+
+        static void CheckMaxFile(string folderPath)
+        {
+            try
+            {
+                // Get all pics files in the specified directory
+                string[] jpgFiles = Directory.GetFiles(folderPath, "*.jpg");
+                string[] pngFiles = Directory.GetFiles(folderPath, "*.png");
+
+                // Combine all arrays
+                string[] allFiles = jpgFiles.Concat(pngFiles).ToArray();
+
+                double totalSizeBytes = 0;
+
+                // List all jpg files
+                foreach (string file in allFiles)
+                {
+                    totalSizeBytes = totalSizeBytes + new FileInfo(file).Length;
+                }
+
+                double totalSizeMB = totalSizeBytes / (1024.0 * 1024.0);
+                if (totalSizeMB > DllEntry.MaxSize)
+                {
+                    File.Delete(allFiles.OrderBy(x => new FileInfo(x).CreationTime).FirstOrDefault());
+                }
+            }
+            catch (Exception i)
+            {
+                Tools.Logger(i, i.ToString());
             }
         }
     }
