@@ -91,7 +91,7 @@ namespace Arma_ScreenShot_Extension
             if (inputKey == "MaxSize")
             {
                 MaxSize = int.Parse(args[0]);
-                output.Append($"MaxSize success set as {MaxSize}");
+                output.Append($"MaxSize successfully set as {MaxSize}");
                 return MaxSize;
             }
             return -1;
