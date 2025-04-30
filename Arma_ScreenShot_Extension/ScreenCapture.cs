@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Drawing.Imaging;
 
 namespace Arma_ScreenShot_Extension
 {
@@ -37,14 +39,21 @@ namespace Arma_ScreenShot_Extension
 
                 using (Bitmap bitmap = new Bitmap(width, height))
                 {
+                    ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
+                    var myEncoder = System.Drawing.Imaging.Encoder.Quality;
                     using (Graphics g = Graphics.FromImage(bitmap))
                     {
                         g.CopyFromScreen(rect.Left, rect.Top, 0, 0, new Size(width, height));
                     }
 
+                    EncoderParameters myEncoderParameters = new EncoderParameters(1);
+                    EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 50L);
+                    myEncoderParameters.Param[0] = myEncoderParameter;
+
                     //- Save the File
                     await Task.Delay(100);
-                    bitmap.Save(outputFilePath);
+                    bitmap.Save(outputFilePath, jpgEncoder, myEncoderParameters);
+                    //bitmap.Save(outputFilePath);
 
                     //- Check whether the folder is full
                     CheckMaxFile(dir);
@@ -56,7 +65,6 @@ namespace Arma_ScreenShot_Extension
                 return $"ERROR: \n{i}\n{outputFilePath}";
             }
         }
-
         static void CheckMaxFile(string folderPath)
         {
             try
@@ -86,6 +94,18 @@ namespace Arma_ScreenShot_Extension
             {
                 Tools.Logger(i, i.ToString());
             }
+        }
+        private static ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
+            foreach (ImageCodecInfo codec in codecs)
+            {
+                if (codec.FormatID == format.Guid)
+                {
+                    return codec;
+                }
+            }
+            return null;
         }
     }
 }
