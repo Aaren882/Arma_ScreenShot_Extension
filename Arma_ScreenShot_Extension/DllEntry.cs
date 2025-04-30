@@ -1,5 +1,4 @@
 ﻿using RGiesecke.DllExport;
-using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -22,7 +21,7 @@ namespace Arma_ScreenShot_Extension
         public static void RvExtensionVersion(StringBuilder output, int outputSize)
         {
             outputSize--;
-            output.Append("1.0.0");
+            output.Append("1.1.0");
         }
 
 #if IS_x64
@@ -42,7 +41,7 @@ namespace Arma_ScreenShot_Extension
 
             if (path.IndexOf(@"\",0) < 0 && path.IndexOf("/", 0) < 0)
             {
-                dir = $@"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}\Screenshot";
+                dir = $"{Tools.AssemblyPath}\\Screenshot";
 
                 if (!Directory.Exists(dir))
                     Directory.CreateDirectory(dir);

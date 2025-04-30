@@ -39,13 +39,17 @@ namespace Arma_ScreenShot_Extension
 
                 using (Bitmap bitmap = new Bitmap(width, height))
                 {
+                    //- Get Format
                     ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
                     var myEncoder = System.Drawing.Imaging.Encoder.Quality;
+
+                    //- Print Screen
                     using (Graphics g = Graphics.FromImage(bitmap))
                     {
                         g.CopyFromScreen(rect.Left, rect.Top, 0, 0, new Size(width, height));
                     }
 
+                    //- Encoding Settings
                     EncoderParameters myEncoderParameters = new EncoderParameters(1);
                     EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, 50L);
                     myEncoderParameters.Param[0] = myEncoderParameter;
@@ -53,7 +57,6 @@ namespace Arma_ScreenShot_Extension
                     //- Save the File
                     await Task.Delay(100);
                     bitmap.Save(outputFilePath, jpgEncoder, myEncoderParameters);
-                    //bitmap.Save(outputFilePath);
 
                     //- Check whether the folder is full
                     CheckMaxFile(dir);
